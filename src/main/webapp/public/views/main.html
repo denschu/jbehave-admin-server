@@ -1,0 +1,29 @@
+<div class="reports">
+	<h2>Stories</h2>
+	<table>
+		<colgroup span="1" class="stories"></colgroup>
+		<colgroup span="1" class="scenarios"></colgroup>
+		<colgroup span="1" class="scenarios"></colgroup>
+		<colgroup class="view"></colgroup>
+		<tr>
+			<th colspan="1">Name</th>
+			<th colspan="1">Metadata</th>
+			<th colspan="1">Duration</th>
+			<th colspan="1">Status {{ status }}</th>
+			<th colspan="2">Actions</th>
+		</tr>
+		<tr ng-repeat="story in stories">
+			<td class="story successful">{{ story.name }}</td>
+			<td>{{ story.meta }}</td>
+			<td>{{ story.duration }}</td>
+			<td ng-class="{successful: story.status == 'SUCCESSFUL',running: story.status == 'RUNNING',failed: story.status == 'FAILED'}">{{ story.status }}</td>
+			<td><button type="button" ng-click="runStory(story.name)" class="btn btn-success">Run</button></td>
+			<td><button type="button" ng-click="showStoryResult(story.name)" class="btn btn-success">Show Result</button></td>
+		</tr>
+	</table>
+
+</div>
+<!-- 
+<div class="reports">
+	<button type="button" ng-click="addStory()" class="btn btn-primary">Add Story</button>
+</div> -->

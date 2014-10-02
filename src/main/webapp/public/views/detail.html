@@ -1,0 +1,8 @@
+<div class="reports">
+	<h2 class="form-signin-heading">Story Details: {{ story.name }}</h2>
+	<div ng-include="'reports/' + story.name + '.html'"></div>
+</div>
+<div class="reports">
+	<!-- button ng-click="saveStory()" class="btn btn-lg btn-primary" type="submit">Save</button-->
+	<button ng-click="cancel()" class="btn btn-lg btn-primary" type="submit">Back</button>
+</div>
