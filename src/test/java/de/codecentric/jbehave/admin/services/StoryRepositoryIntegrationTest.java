@@ -29,6 +29,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.codecentric.jbehave.admin.TestApplication;
+import de.codecentric.jbehave.admin.domain.StoryView;
 import de.codecentric.jbehave.admin.repository.StoryRepository;
 
 /**
@@ -43,6 +44,7 @@ public class StoryRepositoryIntegrationTest {
 	static {
 		System.setProperty("spring.config.location", "classpath:/environment.properties");
 	}
+
 	@Autowired
 	StoryRepository repository;
 
@@ -52,7 +54,7 @@ public class StoryRepositoryIntegrationTest {
 		// Given
 
 		// When
-		List<de.codecentric.jbehave.admin.domain.StoryView> result = repository.findAll();
+		List<StoryView> result = repository.findAllStoriesForView();
 
 		// Then
 		assertThat(result, is(notNullValue()));

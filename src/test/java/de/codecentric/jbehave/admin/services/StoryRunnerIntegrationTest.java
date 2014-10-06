@@ -15,6 +15,10 @@
  */
 package de.codecentric.jbehave.admin.services;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +26,6 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.codecentric.jbehave.admin.TestApplication;
-import de.codecentric.jbehave.admin.services.StoryRunnerService;
 
 /**
  * Integration tests for {@link StoryRunnerService}.
@@ -64,4 +67,17 @@ public class StoryRunnerIntegrationTest {
 		// assertThat(failures.values(), is(empty()));
 	}
 
+	@Test
+	public void shouldRunWithFilter() throws InterruptedException {
+
+		// Given
+		String filter = "+category api";
+		// When
+		service.runMultipleStoriesWithFilter(filter);
+
+		// Then
+		Thread.sleep(1000);
+		assertThat(service.getStatus("example"), is(equalTo("SUCCESSFUL")));
+
+	}
 }

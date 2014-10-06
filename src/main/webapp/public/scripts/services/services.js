@@ -15,7 +15,7 @@ angular.module('jbehave-admin.services', ['ngResource'])
     		'/api/stories/:id', 
     		{id:'@id'}, {
     			show: { method: 'GET' },
-    			createExecution: { method: 'POST' , params: {id: '@id'} },
+    			createExecution: { method: 'POST' },
     			update: {method: 'PUT', params: {id: '@id'} },
     			delete: {method:'DELETE', params: {id: '@id'} }
     		});

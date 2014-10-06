@@ -53,4 +53,4 @@ Test API
 # Backlog
 
 * Versioned testdata and stories
-* Run Story from Web GUI
+* Run multiple stories with filters

@@ -17,7 +17,7 @@ angular.module('jbehave-admin')
 				story.status = 'RUNNING';
 			}
 		});
-    	StoryDetail.createExecution(id);
+    	StoryDetail.createExecution({id: id});
     	HttpPoller.startPolling(id, '/api/stories/' + id + '/status', 1000, function (result) {
     		console.log("Result: " + JSON.stringify(result));
 			if(result.data != 'RUNNING'){    					

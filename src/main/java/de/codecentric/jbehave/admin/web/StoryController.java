@@ -34,7 +34,7 @@ public class StoryController {
 	@RequestMapping("/api/stories")
 	public List<StoryView> getStories() {
 		List<StoryView> stories = new ArrayList<StoryView>();
-		for (StoryView story : repository.findAll()) {
+		for (StoryView story : repository.findAllStoriesForView()) {
 			stories.add(story);
 		}
 		return stories;
@@ -56,7 +56,12 @@ public class StoryController {
 	}
 
 	@RequestMapping(value = "/api/stories", method = RequestMethod.POST)
-	public void createStoryExecution(@RequestBody String name) {
+	public void createStoryExecutionWithFilter(@RequestBody String filter) {
+		runner.runMultipleStoriesWithFilter(filter);
+	}
+
+	@RequestMapping(value = "/api/stories/{name}", method = RequestMethod.POST)
+	public void createStoryExecution(@PathVariable String name) {
 		runner.run(name);
 	}
 

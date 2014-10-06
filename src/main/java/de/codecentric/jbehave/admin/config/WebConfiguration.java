@@ -5,11 +5,14 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import de.codecentric.jbehave.admin.web.StoryController;
 
 @Configuration
 @ConfigurationProperties(prefix = "jbehave")
@@ -46,6 +49,11 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
 				registry.addResourceHandler("/reports/**").addResourceLocations("file:" + reportPath).setCachePeriod(cachePeriod);
 			}
 		}
+	}
+
+	@Bean
+	public StoryController storyController() {
+		return new StoryController();
 	}
 
 	public void setReportPath(String reportPath) {
