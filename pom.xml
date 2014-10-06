@@ -3,7 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.codecentric</groupId>
 	<artifactId>jbehave-admin-server</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
+	<url>https://github.com/denschu/jbehave-admin-server/</url>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -18,7 +19,31 @@
 		<angularjs.version>1.2.12</angularjs.version>
 		<jbehave.core.version>3.9.4</jbehave.core.version>
 		<jbehave.web.version>3.5.5</jbehave.web.version>
+		<main.basedir>${basedir}</main.basedir>
+		<passphrase>${gpg.passphrase}</passphrase>
 	</properties>
+	<organization>
+		<name>codecentric AG</name>
+		<url>http://www.codecentric.de</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+	</licenses>
+	<scm>
+		<connection>scm:git:git://github.com/denschu/jbehave-admin-server.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/denschu/jbehave-admin-server.git</developerConnection>
+		<url>https://github.com/denschu/jbehave-admin-server</url>
+	</scm>
+	<developers>
+		<developer>
+			<name>Dennis Schulte</name>
+			<email>dennis.schulte@codecentric.de</email>
+			<organization>codecentric AG</organization>
+		</developer>
+	</developers>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -97,6 +122,11 @@
 		<finalName>${project.artifactId}</finalName>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>1.5</version>
+				</plugin>
 				<!-- Reads actual version from pom.xml. -->
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
@@ -159,4 +189,44 @@
 			</resource>
 		</resources>
 	</build>
+	<profiles>
+		<profile>
+			<id>sign-artifacts</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<configuration>
+							<passphrase>${passphrase}</passphrase>
+						</configuration>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<name>Sonatype Nexus Snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<name>Nexus Release Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 </project>
