@@ -63,12 +63,7 @@ public class StoryRepository {
 	}
 
 	private Story loadStory(String name) {
-		String storyAsText;
-		if (localStoryPath.startsWith("src/test")) {
-			storyAsText = new LoadFromClasspath().loadStoryAsText(name);
-		} else {
-			storyAsText = new LoadFromURL().loadStoryAsText("file://" + localStoryPath + name);
-		}
+		String storyAsText = new LoadFromURL().loadStoryAsText("file:" + localStoryPath + name);
 		Story story = storyParser.parseStory(storyAsText, name);
 		story.namedAs(FilenameUtils.getBaseName(name));
 		return story;
