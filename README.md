@@ -54,3 +54,4 @@ Test API
 
 * Versioned testdata and stories
 * Run multiple stories with filters
+* Manage parallel story executions
