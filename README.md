@@ -1,7 +1,7 @@
 JBehave Admin Server
 ================================================
 
-[![Build Status](https://travis-ci.org/denschu/jbehave-admin.png?branch=master)](https://travis-ci.org/denschu/jbehave-admin)
+[![Build Status](https://travis-ci.org/denschu/jbehave-admin-server.png?branch=master)](https://travis-ci.org/denschu/jbehave-admin-server)
 
 Admin Application for managing JBehave-Stories and Executions
 
