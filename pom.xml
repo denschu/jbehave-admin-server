@@ -92,12 +92,6 @@
 			<version>${jbehave.core.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.reflections</groupId>
-			<artifactId>reflections</artifactId>
-			<version>0.9.9-RC2</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 		</dependency>
