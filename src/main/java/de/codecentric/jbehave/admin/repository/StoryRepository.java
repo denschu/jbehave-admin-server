@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,6 +41,7 @@ public class StoryRepository {
 	private String localStoryPath;
 	private String reportPath;
 
+	@PostConstruct
 	public List<Story> findAllStories() {
 		stories.clear();
 		// TODO Reload only, when Story was executed
