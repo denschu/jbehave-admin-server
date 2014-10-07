@@ -26,6 +26,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.codecentric.jbehave.admin.TestApplication;
+import de.codecentric.jbehave.admin.repository.StoryRepository;
 
 /**
  * Integration tests for {@link StoryRunnerService}.
@@ -43,11 +44,15 @@ public class StoryRunnerIntegrationTest {
 	@Autowired
 	StoryRunnerService service;
 
+	@Autowired
+	StoryRepository repository;
+	
 	@Test
 	public void shouldRunSuccessfully() throws InterruptedException {
 
 		// Given
 		String name = "example";
+		repository.findAllStories();
 		
 		// When
 		service.run(name);
