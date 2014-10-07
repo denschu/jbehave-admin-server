@@ -69,8 +69,6 @@ public class StoryRunnerIntegrationTest {
 			}
 			Thread.sleep(1000);
 		}
-		// assertThat(failures, is(notNullValue()));
-		// assertThat(failures.values(), is(empty()));
 	}
 
 	@Test
