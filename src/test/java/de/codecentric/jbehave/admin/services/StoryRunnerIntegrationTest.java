@@ -48,6 +48,7 @@ public class StoryRunnerIntegrationTest {
 
 		// Given
 		String name = "example";
+		
 		// When
 		service.run(name);
 
