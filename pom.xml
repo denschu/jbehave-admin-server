@@ -17,7 +17,7 @@
 		<bootstrap.version>3.1.1</bootstrap.version>
 		<jquery.version>1.11.0</jquery.version>
 		<angularjs.version>1.2.12</angularjs.version>
-		<jbehave.core.version>3.9.4</jbehave.core.version>
+		<jbehave.core.version>3.9.1</jbehave.core.version>
 		<jbehave.web.version>3.5.5</jbehave.web.version>
 		<main.basedir>${basedir}</main.basedir>
 		<passphrase>${gpg.passphrase}</passphrase>
