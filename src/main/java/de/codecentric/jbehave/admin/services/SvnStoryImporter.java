@@ -8,14 +8,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.tmatesoft.svn.core.ISVNDirEntryHandler;
 import org.tmatesoft.svn.core.SVNDepth;
-import org.tmatesoft.svn.core.SVNDirEntry;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNURL;
 import org.tmatesoft.svn.core.auth.ISVNAuthenticationManager;
 import org.tmatesoft.svn.core.wc.SVNClientManager;
-import org.tmatesoft.svn.core.wc.SVNLogClient;
 import org.tmatesoft.svn.core.wc.SVNRevision;
 import org.tmatesoft.svn.core.wc.SVNUpdateClient;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
@@ -29,6 +26,10 @@ public class SvnStoryImporter implements StoryImporter {
 	private String remoteStoryPath;
 	private String remoteUser;
 	private String remotePassword;
+
+	private Long lastUpdateTime;
+
+	private Long updateInterval = 10000L;
 
 	/**
 	 * {@inheritDoc}
@@ -47,28 +48,27 @@ public class SvnStoryImporter implements StoryImporter {
 			} catch (SVNException e) {
 				throw new IllegalStateException(e);
 			}
+			lastUpdateTime = System.currentTimeMillis();
 		}
 	}
-	
+
 	@Override
 	public void updateStories() {
 		if (!StringUtils.isBlank(remoteStoryPath)) {
+			Long actualTime = System.currentTimeMillis();
+			boolean shouldUpdate = (lastUpdateTime + updateInterval) < actualTime;
+			if (!shouldUpdate) {
+				LOGGER.info("Skipping update... ");
+				return;
+			}
 			File dstPath = new File(localStoryPath);
 			try {
 				SVNClientManager clientManager = SVNClientManager.newInstance(SVNWCUtil.createDefaultOptions(true), remoteUser, remotePassword);
-				SVNLogClient logClient = clientManager.getLogClient();
-				SVNURL url = SVNURL.parseURIEncoded(remoteStoryPath);
-				ISVNDirEntryHandler handler = new ISVNDirEntryHandler() {
-	                public void handleDirEntry(SVNDirEntry dirEntry) throws SVNException {
-	                	if(!StringUtils.isBlank(dirEntry.getName())){
-	                		LOGGER.info("File found in SVN: " + dirEntry.toString());
-	                	}    
-	                }
-	            };
-				logClient.doList(url, SVNRevision.UNDEFINED, SVNRevision.HEAD, true, SVNDepth.INFINITY, SVNDirEntry.DIRENT_ALL, handler);
 				LOGGER.info("Updating Stories from " + remoteStoryPath);
 				SVNUpdateClient uc = clientManager.getUpdateClient();
 				uc.doUpdate(dstPath, SVNRevision.UNDEFINED, SVNDepth.INFINITY, true, true);
+				LOGGER.info("Update finished!");
+				lastUpdateTime = System.currentTimeMillis();
 			} catch (SVNException e) {
 				throw new IllegalStateException(e);
 			}

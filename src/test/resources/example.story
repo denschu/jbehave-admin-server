@@ -1,5 +1,6 @@
 Meta:
 @category api
+@author dennis.schulte<at>codecentric.de
 
 Scenario: API Test
 

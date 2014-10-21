@@ -16,7 +16,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
-import org.jbehave.core.io.LoadFromClasspath;
 import org.jbehave.core.io.LoadFromURL;
 import org.jbehave.core.io.StoryFinder;
 import org.jbehave.core.model.Story;
@@ -26,6 +25,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 import de.codecentric.jbehave.admin.domain.StoryView;
+import de.codecentric.jbehave.admin.services.StoryImporter;
 
 @ConfigurationProperties(prefix = "jbehave")
 public class StoryRepository {
@@ -38,13 +38,17 @@ public class StoryRepository {
 
 	private Map<String, Properties> statistics = new HashMap<String, Properties>();
 
+	private StoryImporter storyImporter;
+
 	private String localStoryPath;
+
 	private String reportPath;
 
 	@PostConstruct
 	public List<Story> findAllStories() {
 		stories.clear();
 		// TODO Reload only, when Story was executed
+		storyImporter.updateStories();
 		loadStatistics();
 		List<String> resolvedStories = new StoryFinder().findPaths(localStoryPath, Arrays.asList("**/*.story"), null);
 		for (String resolvedStory : resolvedStories) {
@@ -125,6 +129,10 @@ public class StoryRepository {
 				statistics.put(FilenameUtils.getBaseName(path), stats);
 			}
 		}
+	}
+
+	public void setStoryImporter(StoryImporter storyImporter) {
+		this.storyImporter = storyImporter;
 	}
 
 	public void setLocalStoryPath(String localStoryPath) {

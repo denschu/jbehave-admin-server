@@ -15,6 +15,7 @@
  */
 package de.codecentric.jbehave.admin.services;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -25,30 +26,32 @@ import org.junit.Test;
 public class SvnStoryImporterTest {
 
 	private final static String REPO = "https://github.com/denschu/jbehave-admin-server/trunk/src/test/resources";
-	
+
 	@Test
+	@Ignore
 	public void shouldCheckoutSuccessfully() throws InterruptedException {
 
 		// Given
 		SvnStoryImporter service = new SvnStoryImporter();
 		service.setRemoteStoryPath(REPO);
 		service.setLocalStoryPath("target/stories");
-		
+
 		// When
 		service.importStories();
 
 		// Then
 
 	}
-	
+
 	@Test
+	@Ignore
 	public void shouldUpdateSuccessfully() throws InterruptedException {
 
 		// Given
 		SvnStoryImporter service = new SvnStoryImporter();
 		service.setRemoteStoryPath(REPO);
 		service.setLocalStoryPath("target/stories");
-		
+
 		// When
 		service.updateStories();
 
