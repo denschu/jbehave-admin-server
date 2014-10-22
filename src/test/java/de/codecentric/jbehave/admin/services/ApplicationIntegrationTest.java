@@ -16,6 +16,7 @@
 package de.codecentric.jbehave.admin.services;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
@@ -46,6 +47,7 @@ public class ApplicationIntegrationTest {
 	}
 
 	@Test
+	@Ignore
 	public void shouldRunSuccessfully() throws InterruptedException {
 		// Given
 		String name = "example";
